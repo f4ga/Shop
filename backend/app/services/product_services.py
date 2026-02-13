@@ -26,7 +26,7 @@ class ProductService:
         if not product:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Category with id {product_id} not found",
+                detail=f"Product with id {product_id} not found",
             )
 
         return ProductResponse.model_validate(product)

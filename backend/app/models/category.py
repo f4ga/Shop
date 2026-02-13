@@ -9,7 +9,7 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(255), unique=True, nullable=False)
-    name = Column(String(255), nullable=False)
+    slug = Column(String(255), nullable=False)
     products = relationship("Product", back_populates="category")
     created_at = Column(DateTime, default=datetime.now)
 

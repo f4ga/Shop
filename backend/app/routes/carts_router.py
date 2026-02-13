@@ -7,7 +7,7 @@ from ..schemas.cart import (
     CartResponse,
     CartItemCreate,
     RemoveFromCartRequest,
-    UpdateCartRequest,
+    CartItemUpdate,
 )
 from pydantic import BaseModel
 
@@ -35,7 +35,7 @@ def get_cart(cart_data: Dict[int, int], db: Session = Depends(get_db)):
 
 
 @router.put("/update", response_model=CartResponse, status_code=status.HTTP_200_OK)
-def update_cart(request: UpdateCartRequest, db: Session = Depends(get_db)):
+def update_cart(request: CartItemUpdate, db: Session = Depends(get_db)):
     cart_service = CartService(db)
     cart_item = CartItemCreate(product_id=request.product_id, quantity=request.quantity)
     updated_cart = cart_service.update_cart(cart_item, request.cart_data)

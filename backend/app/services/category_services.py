@@ -7,15 +7,15 @@ from fastapi import HTTPException, status
 
 class CategoryService:
     def __init__(self, db: Session):
-        self.categeory_repository = CategoryRepository(db)
+        self.category_repository = CategoryRepository(db)
 
     def get_all_categories(self) -> List[CategoryResponse]:
-        categories = self.categeory_repository.get_all()
+        categories = self.category_repository.get_all()
 
         return [CategoryResponse.model_validate(category) for category in categories]
 
     def get_category_by_id(self, category_id: int) -> CategoryResponse:
-        category = self.categeory_repository.get_by_id(category_id)
+        category = self.category_repository.get_by_id(category_id)
 
         if not category:
             raise HTTPException(
@@ -26,6 +26,6 @@ class CategoryService:
         return CategoryResponse.model_validate(category)
 
     def create_category(self, category_data: CategoryCreate) -> CategoryResponse:
-        category = self.categeory_repository.create(category_data)
+        category = self.category_repository.create(category_data)
 
         return CategoryResponse.model_validate(category)
