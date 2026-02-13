@@ -23,6 +23,12 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=settings.static_dir), name="static")
 
 
+init_db()
+app.include_router(product_router)
+app.include_router(categories_router)
+app.include_router(cart_router)
+
+
 @app.get("/")
 def root():
     return {
@@ -30,3 +36,8 @@ def root():
         "docs": app.docs_url,
         "redoc": app.redoc_url,
     }
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}

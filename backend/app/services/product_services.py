@@ -14,7 +14,10 @@ class ProductService:
     def get_all_product(self) -> List[ProductResponse]:
         products = self.product_repository.get_all()
         products_response = [
-            ProductResponse.model_validate(product) for product in products
+            ProductResponse.model_validate(
+                {**product.__dict__, "category": product.category.__dict__}
+            )
+            for product in products
         ]
         return ProductListResponse(
             products=products_response, total=len(products_response)
@@ -29,7 +32,9 @@ class ProductService:
                 detail=f"Product with id {product_id} not found",
             )
 
-        return ProductResponse.model_validate(product)
+        return ProductResponse.model_validate(
+            {**product.__dict__, "category": product.category.__dict__}
+        )
 
     def get_product_by_category(self, category_id: int) -> ProductListResponse:
         category = self.category_repository.get_by_id(category_id)
@@ -42,7 +47,10 @@ class ProductService:
 
         products = self.product_repository.get_by_category(category)
         products_response = [
-            ProductResponse.model_validate(product) for product in products
+            ProductResponse.model_validate(
+                {**product.__dict__, "category": product.category.__dict__}
+            )
+            for product in products
         ]
         return ProductListResponse(
             products=products_response, total=len(products_response)
@@ -58,4 +66,6 @@ class ProductService:
             )
 
         product = self.product_repository.create(product_data)
-        return ProductResponse.model_validate(product)
+        return ProductResponse.model_validate(
+            {**product.__dict__, "category": product.category.__dict__}
+        )

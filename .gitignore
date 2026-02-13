@@ -38,3 +38,4 @@ yarn-error.log*s
 # OS файлы
 .DS_Store
 Thumbs.db
+shop.db

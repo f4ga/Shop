@@ -12,7 +12,10 @@ class CategoryService:
     def get_all_categories(self) -> List[CategoryResponse]:
         categories = self.category_repository.get_all()
 
-        return [CategoryResponse.model_validate(category) for category in categories]
+        return [
+            CategoryResponse.model_validate(category.__dict__)
+            for category in categories
+        ]
 
     def get_category_by_id(self, category_id: int) -> CategoryResponse:
         category = self.category_repository.get_by_id(category_id)
@@ -23,9 +26,9 @@ class CategoryService:
                 detail=f"Category with id {category_id} not found",
             )
 
-        return CategoryResponse.model_validate(category)
+        return CategoryResponse.model_validate(category.__dict__)
 
     def create_category(self, category_data: CategoryCreate) -> CategoryResponse:
         category = self.category_repository.create(category_data)
 
-        return CategoryResponse.model_validate(category)
+        return CategoryResponse.model_validate(category.__dict__)
