@@ -9,6 +9,7 @@ build/
 .cache/
 .tmp/
 .sass-cache/
+__pycache__
 
 # Секреты и настройки
 .env
